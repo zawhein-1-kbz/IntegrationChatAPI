@@ -100,4 +100,9 @@ public class OpenAIChatService : IChatService
             return false;
         }
     }
+
+    public Task<ChatResponse> SendTestMessageAsync(ChatRequest request)
+    {
+        throw new NotImplementedException();
+    }
 }

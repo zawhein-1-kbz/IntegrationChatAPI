@@ -113,4 +113,44 @@ public class GitHubModelsChatService : IChatService
             return false;
         }
     }
+
+    public async Task<ChatResponse> SendTestMessageAsync(ChatRequest request)
+    {
+        // 
+        var endpoint = new Uri("https://models.github.ai/inference");
+        var credential = "***";// System.Environment.GetEnvironmentVariable("GITHUB_TOKEN");
+        var model = "openai/gpt-4.1-nano";
+
+        var openAIOptions = new OpenAIClientOptions()
+        {
+            Endpoint = endpoint
+        };
+
+        var client = new ChatClient(model, new ApiKeyCredential(credential), openAIOptions);
+
+        List<ChatMessage> messages = new List<ChatMessage>()
+        {
+            new SystemChatMessage("You are a helpful assistant."),
+            new UserChatMessage(request.Message),
+        };
+
+        var requestOptions = new ChatCompletionOptions()
+        {
+            Temperature = 1.0f,
+            TopP = 1.0f,
+        };
+
+        var response = client.CompleteChat(messages, requestOptions);
+        var responseMessage = response.Value.Content[0].Text;
+        var tokensUsed = response.Value.Usage?.TotalTokenCount ?? 0;
+        messages.Add(new AssistantChatMessage(responseMessage));
+
+        return new ChatResponse(
+                responseMessage,
+                request.ConversationId,
+                DateTime.UtcNow,
+                _settings.Model,
+                tokensUsed
+            );
+    }
 }
