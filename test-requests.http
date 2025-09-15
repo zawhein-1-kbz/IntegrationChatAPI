@@ -1,0 +1,30 @@
+### Integration Chat API Testing
+
+# Health Check
+GET https://localhost:5001/api/chat/health
+
+###
+
+# Send a chat message (will fail without API key)
+POST https://localhost:5001/api/chat/message
+Content-Type: application/json
+
+{
+    "message": "Hello, how are you today?"
+}
+
+###
+
+# Send a chat message with conversation ID
+POST https://localhost:5001/api/chat/message
+Content-Type: application/json
+
+{
+    "message": "What is the weather like?",
+    "conversationId": "test-conversation-123"
+}
+
+###
+
+# Application Health Check
+GET https://localhost:5001/health
