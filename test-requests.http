@@ -26,5 +26,31 @@ Content-Type: application/json
 
 ###
 
+# GitHub Models Health Check
+GET https://localhost:5001/api/githubmodels/health
+
+###
+
+# Send a chat message using GitHub Models
+POST https://localhost:5001/api/githubmodels/message
+Content-Type: application/json
+
+{
+    "message": "Hello, what can you help me with today?"
+}
+
+###
+
+# Send a chat message with conversation ID using GitHub Models
+POST https://localhost:5001/api/githubmodels/message
+Content-Type: application/json
+
+{
+    "message": "Tell me about artificial intelligence",
+    "conversationId": "github-models-conversation-123"
+}
+
+###
+
 # Application Health Check
 GET https://localhost:5001/health

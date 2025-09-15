@@ -10,8 +10,13 @@ builder.Services.AddControllers();
 builder.Services.Configure<OpenAISettings>(
     builder.Configuration.GetSection("OpenAI"));
 
-// Register chat service
+// Configure GitHub Models settings
+builder.Services.Configure<GitHubModelsSettings>(
+    builder.Configuration.GetSection("GitHubModels"));
+
+// Register chat services
 builder.Services.AddScoped<IChatService, OpenAIChatService>();
+builder.Services.AddScoped<GitHubModelsChatService>();
 
 // Add API documentation
 builder.Services.AddEndpointsApiExplorer();
@@ -21,7 +26,7 @@ builder.Services.AddSwaggerGen(c =>
     { 
         Title = "Integration Chat API", 
         Version = "v1",
-        Description = "A production-ready API for chat integration with OpenAI GPT models"
+        Description = "A production-ready API for chat integration with OpenAI GPT models and GitHub Models"
     });
 });
 

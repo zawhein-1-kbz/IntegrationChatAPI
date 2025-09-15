@@ -18,3 +18,13 @@ public class OpenAISettings
     public int MaxTokens { get; set; } = 1000;
     public double Temperature { get; set; } = 0.7;
 }
+
+public class GitHubModelsSettings
+{
+    public string GitHubToken { get; set; } = string.Empty;
+    public string Model { get; set; } = "openai/gpt-4.1-nano";
+    public int MaxTokens { get; set; } = 1000;
+    public double Temperature { get; set; } = 1.0;
+    public double TopP { get; set; } = 1.0;
+    public string Endpoint { get; set; } = "https://models.github.ai/inference";
+}
